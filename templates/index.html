@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EOM Feedback</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <span class="brand">EOM Feedback</span>
+        <span class="tagline">Internal feedback for EOM</span>
+      </div>
+    </header>
+
+    <main class="wrap page">
+      <section class="intro">
+        <p class="eyebrow">EOM Feedback</p>
+        <h1>Share feedback</h1>
+        <p class="lede">
+          Suggest improvements, report problems, or share ideas about the EOM
+          application. One short form — no account needed.
+        </p>
+      </section>
+
+      <section class="panel">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-list" role="alert">
+              {% for category, message in messages %}
+                <li class="flash flash-{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('main.submit') }}" novalidate>
+          <div class="field">
+            <label for="section">
+              Application Section <span class="req">*</span>
+            </label>
+            <select
+              id="section"
+              name="section"
+              required
+              {% if submitted %}disabled{% endif %}
+            >
+              <option value="" disabled {% if not form.section %}selected{% endif %}>
+                Select a section
+              </option>
+              {% for section in sections %}
+                <option
+                  value="{{ section }}"
+                  {% if form.section == section %}selected{% endif %}
+                >
+                  {{ section }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="comment">
+              Comment <span class="req">*</span>
+            </label>
+            <textarea
+              id="comment"
+              name="comment"
+              rows="5"
+              maxlength="5000"
+              required
+              placeholder="Describe your suggestion, problem, or idea…"
+              {% if submitted %}readonly{% endif %}
+            >{{ form.comment }}</textarea>
+          </div>
+
+          <div class="field">
+            <label for="position">
+              Your Position <span class="optional">(optional)</span>
+            </label>
+            <input
+              id="position"
+              name="position"
+              type="text"
+              maxlength="200"
+              placeholder="e.g. Category Manager, Purchaser, Analyst"
+              value="{{ form.position }}"
+              {% if submitted %}readonly{% endif %}
+            />
+          </div>
+
+          {% if not submitted %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          {% else %}
+            <p class="success" role="status">Thank you for your feedback!</p>
+            <a class="btn btn-secondary" href="{{ url_for('main.write_again') }}">
+              Write one more feedback
+            </a>
+          {% endif %}
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
