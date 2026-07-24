@@ -32,6 +32,10 @@ Thumbs.db
 .idea/
 .vscode/
 
+# Local SQLite database
+feedback.db
+*.db
+
 # Leftover from previous Next.js stack (safe to delete locally)
 node_modules/
 .next/
