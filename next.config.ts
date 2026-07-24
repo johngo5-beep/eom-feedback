@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Ready for Vercel: no special output mode required for the App Router.
+  poweredByHeader: false,
 };
 
 export default nextConfig;
