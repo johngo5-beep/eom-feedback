@@ -38,7 +38,6 @@
         <aside class="col-left">
           <div class="col-left-top">
             <p class="brand">EOM Feedback</p>
-            <h1>Share feedback</h1>
             <p class="lede">
               Suggest improvements, report problems, or share ideas about the
               EOM application. One short form — no account needed.
@@ -46,14 +45,21 @@
           </div>
 
           <div class="col-left-actions">
-            {% if not submitted %}
-              <button type="submit" class="btn btn-primary">Submit</button>
-            {% else %}
-              <p class="success" role="status">Thank you for your feedback!</p>
-              <a class="btn btn-secondary" href="{{ url_for('main.write_again') }}">
-                Write one more feedback
-              </a>
-            {% endif %}
+            <div class="action-note" {% if submitted %}role="status"{% endif %}>
+              {% if submitted %}Thank you for your feedback!{% endif %}
+            </div>
+            <div class="action-button">
+              {% if not submitted %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+              {% else %}
+                <a
+                  class="btn btn-primary"
+                  href="{{ url_for('main.write_again') }}"
+                >
+                  Write one more feedback
+                </a>
+              {% endif %}
+            </div>
           </div>
         </aside>
 
