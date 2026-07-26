@@ -24,12 +24,26 @@ body {
 }
 
 body {
+  position: relative;
   font-family: var(--font);
   color: var(--ink);
   background:
-    radial-gradient(1200px 500px at 8% -8%, rgba(15, 110, 86, 0.09), transparent 55%),
-    radial-gradient(900px 420px at 100% 0%, rgba(21, 32, 43, 0.05), transparent 50%),
+    radial-gradient(1200px 500px at 8% -8%, rgba(15, 110, 86, 0.07), transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, rgba(21, 32, 43, 0.04), transparent 50%),
     var(--bg);
+}
+
+/* Pale contour doodles behind the form — decorative only. */
+.bg-fun {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("/static/bg-doodles.svg?v=animals2");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: min(1400px, 110vw) auto;
+  opacity: 0.22;
 }
 
 ::selection {
@@ -37,6 +51,8 @@ body {
 }
 
 .page {
+  position: relative;
+  z-index: 1;
   width: min(100% - 2rem, 72rem);
   margin: 0 auto;
   padding: 2rem 0 3rem;

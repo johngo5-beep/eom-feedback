@@ -7,11 +7,11 @@ from db import insert_feedback
 bp = Blueprint("main", __name__)
 
 APP_SECTIONS = (
-    "General",
-    "Entities",
-    "Matrices",
-    "Forecast",
-    "Integration to Core system",
+    "Общее",
+    "Сущности",
+    "Матрицы",
+    "Прогнозы",
+    "Результаты отпвляемые 1С",
 )
 
 COMMENT_MAX_LENGTH = 5000

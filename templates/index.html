@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
+    <div class="bg-fun" aria-hidden="true"></div>
     <main class="page">
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -39,24 +40,25 @@
           <div class="col-left-top">
             <p class="brand">EOM Feedback</p>
             <p class="lede">
-              Suggest improvements, report problems, or share ideas about the
-              EOM application. One short form — no account needed.
+              Делитесь идеями, предлагайте улучшения, сообщайте о проблемах.
+              <br><br>
+              Одна короткая форма — быстро и просто.
             </p>
           </div>
 
           <div class="col-left-actions">
             <div class="action-note" {% if submitted %}role="status"{% endif %}>
-              {% if submitted %}Thank you for your feedback!{% endif %}
+              {% if submitted %}Спасибо за идеи!{% endif %}
             </div>
             <div class="action-button">
               {% if not submitted %}
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Отправить</button>
               {% else %}
                 <a
                   class="btn btn-primary"
                   href="{{ url_for('main.write_again') }}"
                 >
-                  Write one more feedback
+                  Написать ещё одну идею
                 </a>
               {% endif %}
             </div>
@@ -65,7 +67,7 @@
 
         <div class="field field-section">
           <label for="section">
-            Application Section <span class="req">*</span>
+            Раздел приложения <span class="req">*</span>
           </label>
           <select
             id="section"
@@ -74,7 +76,7 @@
             {% if submitted %}disabled{% endif %}
           >
             <option value="" disabled {% if not form.section %}selected{% endif %}>
-              Select a section
+              Выберите раздел
             </option>
             {% for section in sections %}
               <option
@@ -89,14 +91,14 @@
 
         <div class="field field-position">
           <label for="position">
-            Your Position <span class="optional">(optional)</span>
+            Ваша должность (можно и Имя) <span class="optional">(опционально)</span>
           </label>
           <input
             id="position"
             name="position"
             type="text"
             maxlength="200"
-            placeholder="e.g. Category Manager, Purchaser, Analyst"
+            placeholder="e.g. Категорийный менеджер, Начальник отдела и т.д."
             value="{{ form.position }}"
             {% if submitted %}readonly{% endif %}
           />
@@ -104,7 +106,7 @@
 
         <div class="field field-comment">
           <label for="comment">
-            Comment <span class="req">*</span>
+            Идеи <span class="req">*</span>
           </label>
           <textarea
             id="comment"
@@ -112,7 +114,7 @@
             rows="8"
             maxlength="5000"
             required
-            placeholder="Describe your suggestion, problem, or idea…"
+            placeholder="Расскажите о своей идее, проблеме или предложении…"
             {% if submitted %}readonly{% endif %}
           >{{ form.comment }}</textarea>
         </div>
